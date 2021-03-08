@@ -4,7 +4,7 @@
   "license": "MIT",
   "repository": "https://github.com/enishitech/stanza-repo.git",
   "dependencies": {
-    "togostanza": "^3.0.0-beta.13"
+    "togostanza": "github:togostanza/togostanza"
   },
   "engines": {
     "node": ">=14"
