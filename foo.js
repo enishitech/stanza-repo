@@ -2,10 +2,15 @@ import { d as defineStanzaElement } from './stanza-element-d0b06ad6.js';
 
 async function foo(stanza, params) {
   stanza.render({
-    template: 'stanza.html.hbs',
-    parameters: {
-      greeting: `Hello, ${params['say-to']}!`
-    }
+    template: "stanza.html.hbs",
+    parameters: {},
+  });
+  const input = stanza.root.querySelector("input");
+  input.addEventListener("input", (ev) => {
+    const value = ev.target.value;
+    stanza.host.dispatchEvent(
+      new CustomEvent("valueChanged", { detail: { value } })
+    );
   });
 }
 
@@ -32,13 +37,6 @@ var metadata = {
 	"stanza:created": "2021-03-08",
 	"stanza:updated": "2021-03-08",
 	"stanza:parameter": [
-	{
-		"stanza:key": "say-to",
-		"stanza:type": "string",
-		"stanza:example": "world",
-		"stanza:description": "who to say hello to",
-		"stanza:required": false
-	}
 ],
 	"stanza:about-link-placement": "bottom-right",
 	"stanza:style": [
@@ -63,21 +61,16 @@ var metadata = {
 	"stanza:incomingEvent": [
 ],
 	"stanza:outgoingEvent": [
+	{
+		"stanza:key": "valueChanged",
+		"stanza:description": "value changed"
+	}
 ]
 };
 
 var templates = [
   ["stanza.html.hbs", {"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
-    var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
-        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
-          return parent[propertyName];
-        }
-        return undefined
-    };
-
-  return "<p class=\"greeting\">"
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"greeting") || (depth0 != null ? lookupProperty(depth0,"greeting") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"greeting","hash":{},"data":data,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":32}}}) : helper)))
-    + "</p>\n";
+    return "<input type=\"text\">";
 },"useData":true}]
 ];
 

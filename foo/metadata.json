@@ -14,15 +14,7 @@
   "stanza:contributor": [],
   "stanza:created": "2021-03-08",
   "stanza:updated": "2021-03-08",
-  "stanza:parameter": [
-    {
-      "stanza:key": "say-to",
-      "stanza:type": "string",
-      "stanza:example": "world",
-      "stanza:description": "who to say hello to",
-      "stanza:required": false
-    }
-  ],
+  "stanza:parameter": [],
   "stanza:about-link-placement": "bottom-right",
   "stanza:style": [
     {
@@ -34,15 +26,16 @@
     {
       "stanza:key": "--greeting-align",
       "stanza:type": "single-choice",
-      "stanza:choice": [
-        "left",
-        "center",
-        "right"
-      ],
+      "stanza:choice": ["left", "center", "right"],
       "stanza:default": "center",
       "stanza:description": "text align of greeting"
     }
   ],
   "stanza:incomingEvent": [],
-  "stanza:outgoingEvent": []
+  "stanza:outgoingEvent": [
+    {
+      "stanza:key": "valueChanged",
+      "stanza:description": "value changed"
+    }
+  ]
 }
