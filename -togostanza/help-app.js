@@ -1,4 +1,4 @@
-import { d as defineComponent, o as openBlock, c as createBlock, b as createVNode, e as createCommentVNode, g as createTextVNode, t as toDisplayString, F as Fragment, a as renderList, h as ref, i as octicons, m as mergeProps, j as computed, r as resolveComponent, s as script$4, p as pushScopeId, k as popScopeId, l as withScopeId, n, f as createApp } from './Layout-1592e2a9.js';
+import { d as defineComponent, g as computed, o as openBlock, c as createBlock, b as createVNode, e as createCommentVNode, h as createTextVNode, t as toDisplayString, F as Fragment, a as renderList, i as ref, j as octicons, m as mergeProps, r as resolveComponent, s as script$4, p as pushScopeId, k as popScopeId, l as withScopeId, n, f as createApp } from './Layout-cf6b1725.js';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -961,38 +961,55 @@ var script$3 = defineComponent({
     'choices',
     'helpText',
     'input',
-    'label',
+    'name',
     'required',
     'type',
   ],
 
   setup(props) {
-    return props;
+
+    const formType = computed(() => {
+      return props.type === "datetime" ? "datetime-local" : props.type;
+    });
+
+    return {...props, formType};
   }
 });
 
-const _hoisted_1$3 = { class: "form-label" };
-const _hoisted_2$3 = {
+const _hoisted_1$3 = { class: "form-label d-flex" };
+const _hoisted_2$3 = { class: "me-auto" };
+const _hoisted_3$2 = {
   key: 0,
   class: "text-danger"
 };
-const _hoisted_3$2 = { class: "input-group" };
-const _hoisted_4$2 = { class: "form-text text-muted" };
+const _hoisted_4$2 = { class: "text-muted" };
+const _hoisted_5$1 = { class: "input-group" };
+const _hoisted_6$1 = {
+  key: 1,
+  class: "form-check"
+};
+const _hoisted_7$1 = {
+  key: 0,
+  class: "form-text text-muted"
+};
 
 function render$3(_ctx, _cache, $props, $setup, $data, $options) {
   return (openBlock(), createBlock(Fragment, null, [
     createVNode("label", _hoisted_1$3, [
-      (_ctx.required)
-        ? (openBlock(), createBlock("span", _hoisted_2$3, "*"))
-        : createCommentVNode("v-if", true),
-      createTextVNode(" " + toDisplayString(_ctx.label), 1 /* TEXT */)
+      createVNode("span", _hoisted_2$3, [
+        (_ctx.required)
+          ? (openBlock(), createBlock("span", _hoisted_3$2, "*"))
+          : createCommentVNode("v-if", true),
+        createTextVNode(" " + toDisplayString(_ctx.name), 1 /* TEXT */)
+      ]),
+      createVNode("small", _hoisted_4$2, toDisplayString(_ctx.type || 'string'), 1 /* TEXT */)
     ]),
-    createVNode("div", _hoisted_3$2, [
-      (_ctx.type === 'single-choice')
+    createVNode("div", _hoisted_5$1, [
+      (_ctx.formType === 'single-choice')
         ? (openBlock(), createBlock("select", {
             key: 0,
-            value: _ctx.input.ref.value,
-            onChange: _cache[1] || (_cache[1] = $event => (_ctx.input.setValue($event.target.value))),
+            value: _ctx.input.valueStr.value,
+            onChange: _cache[1] || (_cache[1] = $event => (_ctx.input.setValueStr($event.target.value))),
             class: "form-select"
           }, [
             (openBlock(true), createBlock(Fragment, null, renderList(_ctx.choices, (choice) => {
@@ -1002,24 +1019,40 @@ function render$3(_ctx, _cache, $props, $setup, $data, $options) {
               }, toDisplayString(choice), 9 /* TEXT, PROPS */, ["value"]))
             }), 128 /* KEYED_FRAGMENT */))
           ], 40 /* PROPS, HYDRATE_EVENTS */, ["value"]))
-        : (openBlock(), createBlock("input", {
-            key: 1,
-            type: _ctx.type,
-            value: _ctx.input.ref.value,
-            onInput: _cache[2] || (_cache[2] = $event => (_ctx.input.setValue($event.target.value))),
-            class: ["form-control", {'form-control-color': _ctx.type === 'color'}]
-          }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["type", "value"])),
+        : (_ctx.formType === 'boolean')
+          ? (openBlock(), createBlock("div", _hoisted_6$1, [
+              createVNode("input", {
+                class: "form-check-input",
+                type: "checkbox",
+                checked: _ctx.input.valueParsed.value,
+                onChange: _cache[2] || (_cache[2] = $event => (_ctx.input.setValueStr($event.target.checked.toString()))),
+                id: _ctx.name
+              }, null, 40 /* PROPS, HYDRATE_EVENTS */, ["checked", "id"]),
+              createVNode("label", {
+                class: "form-check-label",
+                for: _ctx.name
+              }, toDisplayString(_ctx.helpText), 9 /* TEXT, PROPS */, ["for"])
+            ]))
+          : (openBlock(), createBlock("input", {
+              key: 2,
+              type: _ctx.formType,
+              value: _ctx.input.valueStr.value,
+              onInput: _cache[3] || (_cache[3] = $event => (_ctx.input.setValueStr($event.target.value))),
+              class: ["form-control", {'form-control-color': _ctx.formType === 'color'}]
+            }, null, 42 /* CLASS, PROPS, HYDRATE_EVENTS */, ["type", "value"])),
       (_ctx.input.hasDefault)
         ? (openBlock(), createBlock("button", {
-            key: 2,
-            onClick: _cache[3] || (_cache[3] = $event => (_ctx.input.resetToDefault())),
+            key: 3,
+            onClick: _cache[4] || (_cache[4] = $event => (_ctx.input.resetToDefault())),
             disabled: _ctx.input.isDefault.value,
             type: "button",
             class: "btn btn-light border"
           }, "Reset", 8 /* PROPS */, ["disabled"]))
         : createCommentVNode("v-if", true)
     ]),
-    createVNode("small", _hoisted_4$2, toDisplayString(_ctx.helpText), 1 /* TEXT */)
+    (_ctx.formType !== 'boolean')
+      ? (openBlock(), createBlock("small", _hoisted_7$1, toDisplayString(_ctx.helpText), 1 /* TEXT */))
+      : createCommentVNode("v-if", true)
   ], 64 /* STABLE_FRAGMENT */))
 }
 
@@ -2850,6 +2883,16 @@ module.exports = exports['default'];
 // the runtime on a supported path.
 var runtime = handlebars_runtime['default'];
 
+function Helpers0 (Handlebars) {
+  Handlebars.registerHelper('eq', (a, b) => a === b);
+  Handlebars.registerHelper('and', (a, b) => a && b);
+}
+
+function init() {
+  Helpers0.__initialized || (Helpers0(runtime), Helpers0.__initialized = true);
+}
+
+init();
 var Template$2 = /*#__PURE__*/runtime.template({"1":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -2891,6 +2934,7 @@ function styleSnippetTemplate(data, options, asString) {
   return (asString || true) ? html : $(html);
 }
 
+init();
 var Template$1 = /*#__PURE__*/runtime.template({"1":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -2902,11 +2946,40 @@ var Template$1 = /*#__PURE__*/runtime.template({"1":function(container,depth0,he
   return "<"
     + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":2,"column":1},"end":{"line":2,"column":12}}}) : helper)))
     + "\n"
-    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"params") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 1, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":3,"column":2},"end":{"line":5,"column":11}}})) != null ? stack1 : "")
+    + ((stack1 = lookupProperty(helpers,"each").call(alias1,(depth0 != null ? lookupProperty(depth0,"params") : depth0),{"name":"each","hash":{},"fn":container.program(2, data, 1, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":3,"column":2},"end":{"line":11,"column":11}}})) != null ? stack1 : "")
     + "></"
-    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":6,"column":3},"end":{"line":6,"column":14}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":12,"column":3},"end":{"line":12,"column":14}}}) : helper)))
     + ">\n";
 },"2":function(container,depth0,helpers,partials,data,blockParams) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(alias1,(lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||container.hooks.helperMissing).call(alias1,((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"type") : stack1),"boolean",{"name":"eq","hash":{},"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":4,"column":8},"end":{"line":4,"column":33}}}),{"name":"if","hash":{},"fn":container.program(3, data, 0, blockParams),"inverse":container.program(6, data, 0, blockParams),"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":4,"column":2},"end":{"line":10,"column":9}}})) != null ? stack1 : "");
+},"3":function(container,depth0,helpers,partials,data,blockParams) {
+    var stack1, alias1=depth0 != null ? depth0 : (container.nullContext || {}), lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return ((stack1 = lookupProperty(helpers,"if").call(alias1,(lookupProperty(helpers,"eq")||(depth0 && lookupProperty(depth0,"eq"))||container.hooks.helperMissing).call(alias1,((stack1 = blockParams[1][0]) != null ? lookupProperty(stack1,"value") : stack1),"true",{"name":"eq","hash":{},"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":5,"column":8},"end":{"line":5,"column":31}}}),{"name":"if","hash":{},"fn":container.program(4, data, 0, blockParams),"inverse":container.noop,"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":5,"column":2},"end":{"line":7,"column":9}}})) != null ? stack1 : "");
+},"4":function(container,depth0,helpers,partials,data,blockParams) {
+    var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
+        if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
+          return parent[propertyName];
+        }
+        return undefined
+    };
+
+  return "  "
+    + container.escapeExpression(container.lambda(((stack1 = blockParams[2][0]) != null ? lookupProperty(stack1,"name") : stack1), depth0))
+    + "\n";
+},"6":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, alias1=container.lambda, alias2=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -2915,11 +2988,11 @@ var Template$1 = /*#__PURE__*/runtime.template({"1":function(container,depth0,he
     };
 
   return "  "
-    + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"name") : stack1), depth0))
+    + alias2(alias1(((stack1 = blockParams[1][0]) != null ? lookupProperty(stack1,"name") : stack1), depth0))
     + "=\""
-    + alias2(alias1(((stack1 = blockParams[0][0]) != null ? lookupProperty(stack1,"value") : stack1), depth0))
+    + alias2(alias1(((stack1 = blockParams[1][0]) != null ? lookupProperty(stack1,"value") : stack1), depth0))
     + "\"\n";
-},"4":function(container,depth0,helpers,partials,data) {
+},"8":function(container,depth0,helpers,partials,data) {
     var helper, alias1=depth0 != null ? depth0 : (container.nullContext || {}), alias2=container.hooks.helperMissing, alias3="function", alias4=container.escapeExpression, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
           return parent[propertyName];
@@ -2928,9 +3001,9 @@ var Template$1 = /*#__PURE__*/runtime.template({"1":function(container,depth0,he
     };
 
   return "<"
-    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"loc":{"source":"style-snippet.html.hbs","start":{"line":8,"column":1},"end":{"line":8,"column":12}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"loc":{"source":"style-snippet.html.hbs","start":{"line":14,"column":1},"end":{"line":14,"column":12}}}) : helper)))
     + "></"
-    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"loc":{"source":"style-snippet.html.hbs","start":{"line":8,"column":15},"end":{"line":8,"column":26}}}) : helper)))
+    + alias4(((helper = (helper = lookupProperty(helpers,"tagName") || (depth0 != null ? lookupProperty(depth0,"tagName") : depth0)) != null ? helper : alias2),(typeof helper === alias3 ? helper.call(alias1,{"name":"tagName","hash":{},"data":data,"loc":{"source":"style-snippet.html.hbs","start":{"line":14,"column":15},"end":{"line":14,"column":26}}}) : helper)))
     + ">\n";
 },"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data,blockParams) {
     var stack1, lookupProperty = container.lookupProperty || function(parent, propertyName) {
@@ -2940,13 +3013,14 @@ var Template$1 = /*#__PURE__*/runtime.template({"1":function(container,depth0,he
         return undefined
     };
 
-  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"params") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0, blockParams),"inverse":container.program(4, data, 0, blockParams),"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":1,"column":0},"end":{"line":9,"column":7}}})) != null ? stack1 : "");
+  return ((stack1 = lookupProperty(helpers,"if").call(depth0 != null ? depth0 : (container.nullContext || {}),(depth0 != null ? lookupProperty(depth0,"params") : depth0),{"name":"if","hash":{},"fn":container.program(1, data, 0, blockParams),"inverse":container.program(8, data, 0, blockParams),"data":data,"blockParams":blockParams,"loc":{"source":"style-snippet.html.hbs","start":{"line":1,"column":0},"end":{"line":15,"column":7}}})) != null ? stack1 : "");
 },"useData":true,"useBlockParams":true});
 function stanzaSnippetTemplate(data, options, asString) {
   var html = Template$1(data, options);
   return (asString || true) ? html : $(html);
 }
 
+init();
 var Template = /*#__PURE__*/runtime.template({"compiler":[8,">= 4.3.0"],"main":function(container,depth0,helpers,partials,data) {
     var helper, lookupProperty = container.lookupProperty || function(parent, propertyName) {
         if (Object.prototype.hasOwnProperty.call(parent, propertyName)) {
@@ -2975,6 +3049,15 @@ var script$1 = defineComponent({
     const id      = props.metadata['@id'];
     const tagName = `togostanza-${id}`;
 
+    const stanzaProps = computed(() => {
+      return props.params.reduce((acc, param) => {
+        return (param.type === "boolean" && param.value === "false") ? acc : {
+          ...acc,
+          [param.name]: param.value
+        }
+      }, {});
+    });
+
     const stanzaSnippet = computed(() => {
       return stanzaSnippetTemplate({
         tagName,
@@ -3001,8 +3084,10 @@ var script$1 = defineComponent({
     });
 
     return {
-      stanzaSnippet,
+      tagName,
+      props: stanzaProps,
       styleSnippet,
+      stanzaSnippet,
       combinedSnippet
     };
   }
@@ -3030,7 +3115,11 @@ function render$1(_ctx, _cache, $props, $setup, $data, $options) {
     ]),
     createVNode("div", _hoisted_4$1, [
       createVNode("div", { innerHTML: _ctx.styleSnippet }, null, 8 /* PROPS */, ["innerHTML"]),
-      createVNode("div", { innerHTML: _ctx.stanzaSnippet }, null, 8 /* PROPS */, ["innerHTML"])
+      createVNode("togostanza-container", null, [
+        createVNode("div", { innerHTML: _ctx.stanzaSnippet }, null, 8 /* PROPS */, ["innerHTML"]),
+        createCommentVNode(" <component :is=\"tagName\" v-bind=\"props\"></component> "),
+        createCommentVNode(" temporary disable this because some stanzas don't seem to work as expected with the \"component\" approach ")
+      ])
     ])
   ], 64 /* STABLE_FRAGMENT */))
 }
@@ -3051,17 +3140,18 @@ var script = defineComponent({
     const paramFields = (metadata['stanza:parameter'] || []).map((param) => {
       return {
         param,
-        input: useInput(param['stanza:example'], false)
+        input: useInput(param['stanza:example'], param['stanza:type'], false)
       };
     });
 
-    const aboutLinkPlacement = useInput(metadata['stanza:about-link-placement'] || 'bottom-right');
+    const aboutLinkPlacement = useInput(metadata['stanza:about-link-placement'] || 'bottom-right', 'string');
 
     const params = computed(() => {
       return [
         ...paramFields.map(({param, input}) => {
           return {
             name: param['stanza:key'],
+            type: param['stanza:type'],
             input
           };
         }),
@@ -3071,10 +3161,11 @@ var script = defineComponent({
         }
       ].filter(({input}) => (
         !input.isDefault.value
-      )).map(({name, input}) => {
+      )).map(({name, input, type}) => {
         return {
           name,
-          value: input.ref.value
+          type,
+          value: input.valueStr.value
         };
       });
     });
@@ -3082,7 +3173,7 @@ var script = defineComponent({
     const styleFields = (metadata['stanza:style'] || []).map((style) => {
       return {
         style,
-        input: useInput(style['stanza:default'])
+        input: useInput(style['stanza:default'], style['stanza:type'])
       };
     });
 
@@ -3092,7 +3183,7 @@ var script = defineComponent({
       )).map(({style, input}) => {
         return {
           name:  style['stanza:key'],
-          value: input.ref.value
+          value: input.valueStr.value
         };
       });
     });
@@ -3109,27 +3200,59 @@ var script = defineComponent({
   }
 });
 
-function useInput(initValue, hasDefault = true) {
-  const _ref      = ref(initValue);
-  const isDefault = computed(() => hasDefault && (_ref.value === initValue));
+function useInput(initValue, type, hasDefault = true) {
+  const initValueStr = stringify(initValue, type);
+  const valueStr     = ref(initValueStr);
+  const valueParsed  = computed(() => parse(valueStr.value, type));
+  const isDefault    = computed(() => hasDefault && (valueStr.value === initValueStr));
 
-  function setValue(newVal) {
-    _ref.value = newVal;
+  function setValueStr(newValStr) {
+    valueStr.value = newValStr;
   }
 
   function resetToDefault() {
     if (!hasDefault) { return; }
 
-    _ref.value = initValue;
+    this.setValueStr(initValueStr);
   }
 
   return {
-    ref: _ref,
-    setValue,
+    valueStr,
+    valueParsed,
+    setValueStr,
     hasDefault,
     isDefault,
     resetToDefault
   };
+}
+
+function stringify(value, type) {
+  if (value === null || value === undefined) { return null; }
+
+  switch (type) {
+    case 'boolean':
+    case 'number':
+    case 'json':
+      return JSON.stringify(value);
+    default: // value is a string (event if type is not a string. e.g. date)
+      return value;
+  }
+}
+
+function parse(valueStr, type) {
+  if (valueStr === null || valueStr === undefined) { return null; }
+
+  switch (type) {
+    case 'boolean':
+    case 'number':
+    case 'json':
+      return JSON.parse(valueStr);
+    case 'date':
+    case 'datetime':
+      return Date.parse(valueStr);
+    default:
+      return valueStr;
+  }
 }
 
 const _withId = /*#__PURE__*/withScopeId("data-v-0732abc2");
@@ -3293,17 +3416,19 @@ const render = /*#__PURE__*/_withId((_ctx, _cache, $props, $setup, $data, $optio
                     }, [
                       createVNode(_component_FormField, {
                         input: input,
-                        label: param['stanza:key'],
+                        name: param['stanza:key'],
+                        type: param['stanza:type'],
+                        choices: param['stanza:choice'],
                         required: param['stanza:required'],
                         "help-text": param['stanza:description']
-                      }, null, 8 /* PROPS */, ["input", "label", "required", "help-text"])
+                      }, null, 8 /* PROPS */, ["input", "name", "type", "choices", "required", "help-text"])
                     ]))
                   }), 128 /* KEYED_FRAGMENT */)),
                   createVNode("div", _hoisted_26, [
                     createVNode(_component_FormField, {
                       input: _ctx.aboutLinkPlacement,
-                      label: 'togostanza-about-link-placement',
-                      type: 'single-choice',
+                      name: "togostanza-about-link-placement",
+                      type: "single-choice",
                       choices: ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'none'],
                       "help-text": 'Placement of the information icon which links to this page.'
                     }, null, 8 /* PROPS */, ["input", "help-text"])
@@ -3321,11 +3446,11 @@ const render = /*#__PURE__*/_withId((_ctx, _cache, $props, $setup, $data, $optio
                     }, [
                       createVNode(_component_FormField, {
                         input: input,
-                        label: style['stanza:key'],
+                        name: style['stanza:key'],
                         type: style['stanza:type'],
                         choices: style['stanza:choice'],
                         "help-text": style['stanza:description']
-                      }, null, 8 /* PROPS */, ["input", "label", "type", "choices", "help-text"])
+                      }, null, 8 /* PROPS */, ["input", "name", "type", "choices", "help-text"])
                     ]))
                   }), 128 /* KEYED_FRAGMENT */))
                 ]),
