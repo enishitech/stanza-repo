@@ -4,7 +4,7 @@
   },
   "@id": "baz",
   "stanza:label": "Baz",
-  "stanza:definition": "",
+  "stanza:definition": "Receive events via attribute",
   "stanza:type": "Stanza",
   "stanza:display": "Text",
   "stanza:provider": "",
@@ -34,11 +34,7 @@
     {
       "stanza:key": "--greeting-align",
       "stanza:type": "single-choice",
-      "stanza:choice": [
-        "left",
-        "center",
-        "right"
-      ],
+      "stanza:choice": ["left", "center", "right"],
       "stanza:default": "center",
       "stanza:description": "text align of greeting"
     }
