@@ -2,16 +2,21 @@ import { d as defineStanzaElement } from './stanza-element-d0b06ad6.js';
 
 async function bar(stanza, params) {
   stanza.render({
-    template: 'stanza.html.hbs',
+    template: "stanza.html.hbs",
     parameters: {
-      greeting: `Hello, ${params['say-to']}!`
-    }
+      greeting: `Hello, ${params["say-to"]}!`,
+    },
   });
+}
+
+function handleEvent(stanza, params, event) {
+  console.log("bar: received", event);
 }
 
 var stanzaModule = /*#__PURE__*/Object.freeze({
   __proto__: null,
-  'default': bar
+  'default': bar,
+  handleEvent: handleEvent
 });
 
 var metadata = {
@@ -61,6 +66,10 @@ var metadata = {
 	}
 ],
 	"stanza:incomingEvent": [
+	{
+		"stanza:key": "valueChanged",
+		"stanza:description": "value changed event"
+	}
 ],
 	"stanza:outgoingEvent": [
 ]
