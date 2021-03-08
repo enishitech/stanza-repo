@@ -2,10 +2,10 @@ import { d as defineStanzaElement } from './stanza-element-8f3345c0.js';
 
 async function baz(stanza, params) {
   stanza.render({
-    template: 'stanza.html.hbs',
+    template: "stanza.html.hbs",
     parameters: {
-      greeting: `Hello, ${params['say-to']}!`
-    }
+      name: params["say-to"],
+    },
   });
 }
 
@@ -75,9 +75,9 @@ var templates = [
         return undefined
     };
 
-  return "<p class=\"greeting\">"
-    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"greeting") || (depth0 != null ? lookupProperty(depth0,"greeting") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"greeting","hash":{},"data":data,"loc":{"start":{"line":1,"column":20},"end":{"line":1,"column":32}}}) : helper)))
-    + "</p>\n";
+  return "<p class=\"greeting\">Hello, "
+    + container.escapeExpression(((helper = (helper = lookupProperty(helpers,"name") || (depth0 != null ? lookupProperty(depth0,"name") : depth0)) != null ? helper : container.hooks.helperMissing),(typeof helper === "function" ? helper.call(depth0 != null ? depth0 : (container.nullContext || {}),{"name":"name","hash":{},"data":data,"loc":{"start":{"line":1,"column":27},"end":{"line":1,"column":35}}}) : helper)))
+    + "! (with attribute)</p>";
 },"useData":true}]
 ];
 
