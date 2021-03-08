@@ -30,7 +30,7 @@ var metadata = {
 },
 	"@id": "bar",
 	"stanza:label": "Bar",
-	"stanza:definition": "",
+	"stanza:definition": "Receive events via handler",
 	"stanza:type": "Stanza",
 	"stanza:display": "Text",
 	"stanza:provider": "",

@@ -20,7 +20,7 @@ var metadata = {
 },
 	"@id": "baz",
 	"stanza:label": "Baz",
-	"stanza:definition": "",
+	"stanza:definition": "Receive events via attribute",
 	"stanza:type": "Stanza",
 	"stanza:display": "Text",
 	"stanza:provider": "",

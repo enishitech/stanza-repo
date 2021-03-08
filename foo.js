@@ -26,7 +26,7 @@ var metadata = {
 },
 	"@id": "foo",
 	"stanza:label": "Foo",
-	"stanza:definition": "",
+	"stanza:definition": "Input form to emit events",
 	"stanza:type": "Stanza",
 	"stanza:display": "Text",
 	"stanza:provider": "",

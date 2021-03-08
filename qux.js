@@ -26,7 +26,7 @@ var metadata = {
 },
 	"@id": "qux",
 	"stanza:label": "Qux",
-	"stanza:definition": "",
+	"stanza:definition": "Fetch JSON and show",
 	"stanza:type": "Stanza",
 	"stanza:display": "Text",
 	"stanza:provider": "",
@@ -42,7 +42,7 @@ var metadata = {
 		"stanza:key": "data-url",
 		"stanza:type": "string",
 		"stanza:example": "https://quotes.rest/qod?language=en",
-		"stanza:description": "who to say hello to",
+		"stanza:description": "URL to fetch from",
 		"stanza:required": false
 	}
 ],
