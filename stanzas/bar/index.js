@@ -11,7 +11,7 @@ export function handleEvent(stanza, params, event) {
   stanza.render({
     template: "stanza.html.hbs",
     parameters: {
-      name: params["say-to"],
+      name: event.detail.value,
     },
   });
 }
