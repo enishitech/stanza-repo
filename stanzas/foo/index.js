@@ -6,6 +6,7 @@ export default async function foo(stanza, params) {
   const input = stanza.root.querySelector("input");
   input.addEventListener("input", (ev) => {
     const value = ev.target.value;
+    console.log("input", value);
     stanza.host.dispatchEvent(
       new CustomEvent("valueChanged", { detail: { value } })
     );
