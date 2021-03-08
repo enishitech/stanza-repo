@@ -10,7 +10,7 @@ async function qux(stanza, params) {
     template: "stanza.html.hbs",
     parameters: {
       dataUrl,
-      receivedData: JSON.stringify(receivedData, null, "  "),
+      receivedData: JSON.stringify(receivedData.slice(0, 3), null, "  "),
     },
   });
 }
@@ -41,9 +41,9 @@ var metadata = {
 	{
 		"stanza:key": "data-url",
 		"stanza:type": "string",
-		"stanza:example": "https://quotes.rest/qod?language=en",
+		"stanza:example": "https://api.github.com/orgs/togostanza/repos",
 		"stanza:description": "URL to fetch from",
-		"stanza:required": false
+		"stanza:required": true
 	}
 ],
 	"stanza:about-link-placement": "bottom-right",
