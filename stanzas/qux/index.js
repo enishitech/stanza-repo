@@ -1,8 +1,11 @@
 export default async function qux(stanza, params) {
+  const dataUrl = params["data-url"];
+  const receivedData = await fetch(dataUrl).then((res) => res.json());
   stanza.render({
-    template: 'stanza.html.hbs',
+    template: "stanza.html.hbs",
     parameters: {
-      greeting: `Hello, ${params['say-to']}!`
-    }
+      dataUrl,
+      receivedData: JSON.stringify(receivedData, null, "  "),
+    },
   });
 }
