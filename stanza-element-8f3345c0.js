@@ -5628,7 +5628,7 @@ function connectStanzasWithHandler(stanzaElements) {
     for (const eventName of outgoingEventNames(srcEl.stanza)) {
       srcEl.addEventListener(eventName, (event) => {
         for (const destEl of stanzaElements) {
-          if (incomingEventNames(srcEl.stanza).includes(eventName)) {
+          if (incomingEventNames(destEl.stanza).includes(eventName)) {
             destEl.stanza.handleEvent(event);
           }
         }
@@ -9223,4 +9223,4 @@ function ensureBuiltinElementsDefined() {
 }
 
 export { defineStanzaElement as d };
-//# sourceMappingURL=stanza-element-14b4e715.js.map
+//# sourceMappingURL=stanza-element-8f3345c0.js.map

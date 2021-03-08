@@ -1,4 +1,4 @@
-import { d as defineStanzaElement } from './stanza-element-14b4e715.js';
+import { d as defineStanzaElement } from './stanza-element-8f3345c0.js';
 
 async function baz(stanza, params) {
   stanza.render({
