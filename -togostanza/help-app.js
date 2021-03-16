@@ -1,4 +1,4 @@
-import { d as defineComponent, g as computed, o as openBlock, c as createBlock, b as createVNode, e as createCommentVNode, h as createTextVNode, t as toDisplayString, F as Fragment, a as renderList, i as ref, j as octicons, m as mergeProps, r as resolveComponent, s as script$4, p as pushScopeId, k as popScopeId, l as withScopeId, n, f as createApp } from './Layout-cf6b1725.js';
+import { d as defineComponent, g as computed, o as openBlock, c as createBlock, b as createVNode, e as createCommentVNode, h as createTextVNode, t as toDisplayString, F as Fragment, a as renderList, i as ref, j as octicons, m as mergeProps, r as resolveComponent, s as script$4, p as pushScopeId, k as popScopeId, l as withScopeId, n, f as createApp } from './Layout-dfa2cf97.js';
 
 var commonjsGlobal = typeof globalThis !== 'undefined' ? globalThis : typeof window !== 'undefined' ? window : typeof global !== 'undefined' ? global : typeof self !== 'undefined' ? self : {};
 
@@ -3144,7 +3144,7 @@ var script = defineComponent({
       };
     });
 
-    const aboutLinkPlacement = useInput(metadata['stanza:about-link-placement'] || 'bottom-right', 'string');
+    const menuPlacement = useInput(metadata['stanza:menu-placement'] || 'bottom-right', 'string');
 
     const params = computed(() => {
       return [
@@ -3156,8 +3156,8 @@ var script = defineComponent({
           };
         }),
         {
-          name:  'togostanza-about-link-placement',
-          input: aboutLinkPlacement
+          name:  'togostanza-menu-placement',
+          input: menuPlacement
         }
       ].filter(({input}) => (
         !input.isDefault.value
@@ -3206,7 +3206,7 @@ var script = defineComponent({
       metadata,
       readme,
       paramFields,
-      aboutLinkPlacement,
+      menuPlacement,
       params,
       styleFields,
       styleVars,
@@ -3467,8 +3467,8 @@ const render = /*#__PURE__*/_withId((_ctx, _cache, $props, $setup, $data, $optio
                   }), 128 /* KEYED_FRAGMENT */)),
                   createVNode("div", _hoisted_26, [
                     createVNode(_component_FormField, {
-                      input: _ctx.aboutLinkPlacement,
-                      name: "togostanza-about-link-placement",
+                      input: _ctx.menuPlacement,
+                      name: "togostanza-menu-placement",
                       type: "single-choice",
                       choices: ['top-left', 'top-right', 'bottom-left', 'bottom-right', 'none'],
                       "help-text": 'Placement of the information icon which links to this page.'

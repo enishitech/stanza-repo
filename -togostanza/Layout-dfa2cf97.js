@@ -8621,7 +8621,7 @@ var version = "0.0.1";
 var license = "MIT";
 var repository = "https://github.com/enishitech/stanza-repo.git";
 var dependencies = {
-	togostanza: "github:togostanza/togostanza"
+	togostanza: "^3.0.0-beta.14"
 };
 var engines = {
 	node: ">=14"
@@ -8772,4 +8772,4 @@ script.render = render;
 script.__file = "node_modules/togostanza/src/components/Layout.vue";
 
 export { Fragment as F, renderList as a, createVNode as b, createBlock as c, defineComponent as d, createCommentVNode as e, createApp as f, computed as g, createTextVNode as h, ref as i, octicons as j, popScopeId as k, withScopeId as l, mergeProps as m, n, openBlock as o, pushScopeId as p, resolveComponent as r, script as s, toDisplayString as t, withCtx as w };
-//# sourceMappingURL=Layout-cf6b1725.js.map
+//# sourceMappingURL=Layout-dfa2cf97.js.map

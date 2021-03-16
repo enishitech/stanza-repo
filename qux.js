@@ -1,4 +1,4 @@
-import { d as defineStanzaElement } from './stanza-element-8c675bbb.js';
+import { d as defineStanzaElement } from './stanza-element-8ae0895b.js';
 
 async function qux(stanza, params) {
   const dataUrl = params["data-url"];
